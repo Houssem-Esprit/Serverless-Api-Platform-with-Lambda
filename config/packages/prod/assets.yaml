@@ -1,3 +1,3 @@
 framework:
   assets:
-    base_urls: 'https://symfony-prod-assets.s3.amazonaws.com'
+    base_urls: 'https://houssem-symfony-prod-assets.s3.amazonaws.com'

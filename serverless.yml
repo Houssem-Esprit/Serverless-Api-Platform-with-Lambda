@@ -4,7 +4,7 @@ service: symfony
 provider:
   name: aws
   # The AWS region in which to deploy (us-east-1 is the default)
-  region: eu-west-1
+  region: us-east-1
   # The stage of the application, e.g. dev, production, staging… ('dev' is the default)
   stage: prod
   runtime: provided.al2
@@ -26,11 +26,14 @@ functions:
       - httpApi: "*"
     vpc:
       securityGroupIds:
-        - sg-5bba6508
+        - sg-eb16dbf2
       subnetIds:
-        - subnet-55ce2b2c
-        - subnet-12a15559
-        - subnet-a96a4cf3
+        - subnet-dc0a46fd
+        - subnet-e78ecdb8
+        - subnet-24f6e069
+        - subnet-30fdc53e
+        - subnet-b32ea482
+        - subnet-f4733592
   # This function let us run console commands in Lambda
   console:
     handler: bin/console
@@ -40,11 +43,14 @@ functions:
       - ${bref:layer.console} # The "console" layer
     vpc:
       securityGroupIds:
-        - sg-5bba6508
+        - sg-eb16dbf2
       subnetIds:
-        - subnet-55ce2b2c
-        - subnet-12a15559
-        - subnet-a96a4cf3
+        - subnet-dc0a46fd
+        - subnet-e78ecdb8
+        - subnet-24f6e069
+        - subnet-30fdc53e
+        - subnet-b32ea482
+        - subnet-f4733592
 package:
   patterns:
     # Excluded files and folders for deployment
@@ -70,7 +76,7 @@ resources:
     Assets:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: symfony-prod-assets
+        BucketName: houssem-symfony-prod-assets
     # The policy that makes the bucket publicly readable
     AssetsBucketPolicy:
       Type: AWS::S3::BucketPolicy
@@ -83,4 +89,3 @@ resources:
               Action: "s3:GetObject" # to read
               Resource: !Join ["/", [!GetAtt Assets.Arn, "*"]] # things in the bucket
               # alternatively you can write out Resource: 'arn:aws:s3:::<bucket-name>/*'
-	
